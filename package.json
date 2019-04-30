@@ -1,0 +1,9 @@
+{
+  "name": "jughead",
+  "version": "0.1.0",
+  "description": "Generate ArchieML from JSON",
+  "main": "index.js",
+  "repository": "git@github.com:theproductiveprogrammer/jughead.git",
+  "author": "charles.lobo@gmail.com",
+  "license": "MIT"
+}
