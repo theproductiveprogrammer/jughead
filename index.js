@@ -77,10 +77,13 @@ function archieml(obj) {
                 acc.push(`* ${v}`)
                 if(v.match(/[\n\r]/)) acc.push(':end')
             }
-            if(typeof v === 'object') as_txt_1(val[i], [], acc)
+            if(typeof v === 'object') {
+                as_txt_1(val[i], [], acc)
+                acc.push('')
+            }
         }
         parents.pop()
-        acc.push(`[${parent_objs_1(parents)}]`)
+        acc.push(`[${parent_objs_1(parents)}]\n`)
     }
 
     /*      outcome/
