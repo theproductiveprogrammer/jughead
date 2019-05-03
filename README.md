@@ -5,7 +5,7 @@ Create [ArchieML](http://archieml.org) from JSON. Get writers and journalists to
 The interface between tech guys and the rest of the world has always been...tricky. Tech people like living in neat little structured bubbles and roll their eyes when others don't seem to see how it matters if you indent using two space or four. While everyone else would much prefer writing more freely and not having to remember to add quotes and commas and close braces just to get their ideas out there.
 
 ## Enter ArchieML
-The amazing people at **The New York Times** discovered and solved this problem. They created a structured format that is structured just enough so that any of their journalists can easily understand and write but which also has perfectly defined rules for generating [JSON](https://www.json.org/) - the tech guys current and reigning structured data queen. They then released this beautifully balanced creation as open source so we all could use it. Check out [the amazing ArchieML](http://archieml.org/).
+The marvelous people at **The New York Times** recognized this problem and set out to solve it. They created a format that is structured "just enough" so that anyone can easily understand and write it but which also has perfectly defined rules for generating [JSON](https://www.json.org/). JSON is the current reigning structured data queen for much of the tech world. They then released this beautifully balanced creation as open source so we all could use it. Check out [the amazing ArchieML](http://archieml.org/).
 
 ```
     intro: This is ArchieML     =====>      { "intro": "This is ArchieML",
