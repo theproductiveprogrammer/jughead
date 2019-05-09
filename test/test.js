@@ -44,10 +44,67 @@ describe('Jughead', () => {
         })
     })
 
+    it('should handle objects with more multiple keys', () => {
+        toAndfro({
+            a: {
+                b: "Line1",
+                c: "Line2",
+                d: "Line3",
+                e: "Line4",
+                f: "Line5",
+            }
+        })
+    })
+
+    it('should handle objects with fewer multiple keys', () => {
+        toAndfro({
+            a: {
+                b: "Line1",
+                c: "Line2",
+            }
+        })
+    })
+
     it('should work with sub-objects', () => {
         toAndfro({ a: "object",
             b: {
                 c: "with a sub object",
+            },
+            d: {
+                e: "or more than one",
+            }
+        })
+    })
+
+    it('should work with larger sub-objects', () => {
+        toAndfro({
+            a: {
+                b: {
+                    c: "with a sub object",
+                },
+                d: {
+                    e: "or more than one",
+                },
+                f: {
+                    g: "or more than one",
+                },
+                h: {
+                    i: "or more than one",
+                },
+                j: {
+                    k: "or more than one",
+                }
+            }
+        })
+    })
+
+    it('should work with larger sub-sub-objects', () => {
+        toAndfro({ a: "object",
+            b: {
+                c1: "with a sub object",
+                c2: "with a sub object",
+                c3: "with a sub object",
+                c4: "with a sub object",
             },
             d: {
                 e: "or more than one",
@@ -100,13 +157,60 @@ describe('Jughead', () => {
 
     it('should work with repeating arrays', () => {
         toAndfro({ a: [
-            { key: "val1", key2: "more" },
+            { key: "val1", key2: "more", key3: "and more" },
             { key: "val2", key2: "more" },
-            { key: "val3", key2: "more" },
+            { key: "val3", key2: "more", key4: "yet more" },
             { key: "val4", key2: "more" },
             { key: "val5", key2: "more" },
         ]})
     })
+
+   it('should work with repeating arrays inside objects', () => {
+       toAndfro({
+        sports: {
+            EntryQ: "Ask about Sports",
+            KB: [
+                { Q: "What is your favorite sport?", A: "Cricket", R: "Mine too!" },
+                { Q: "What else do you like?", R: "I like alligator wrestling" },
+                { Q: "Who is your favorite player?", A: "Ronaldo", R: "Bowl Gates is my man" }
+            ]},
+        dance : {
+            EntryQ: "Ask about dance",
+            KB: [
+                { Q: "Do you like to dance?", A: "Hell Yeah!", R: "I love the foxtrot!" },
+                { Q: "Wanna dance?", A: "Not right now. I have a boyfriend. My number is the pizza place", R: "Elaine?" }
+            ]}
+       })
+   })
+
+  it('should work with a nice mix', () => {
+      toAndfro({
+          "dance": {
+              "cer": "1",
+              "arrayName": [
+                  {
+                      "a": {
+                          "name": "Amanda"
+                      },
+                      "age": "26",
+                      "again": {
+                          "life": "me",
+                          "test": [
+                              "123",
+                              "456"
+                          ]
+                      }
+                  },
+                  {
+                      "a": {
+                          "name": "Tessa"
+                      },
+                      "age": "30"
+                  }
+              ]
+          }
+      })
+  })
 
   })
 })
