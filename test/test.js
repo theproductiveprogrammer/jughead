@@ -31,6 +31,17 @@ describe('Jughead', () => {
         Strings`})
     })
 
+    it('should handle numbers', () => {
+        let txt = jughead.archieml({ a: 1 })
+        assert(txt === "a: 1")
+    })
+
+    it('should handle multiple numbers', () => {
+        let txt = jughead.archieml({ a: 1, b: 2, c: 0 })
+        assert(txt === "a: 1\nb: 2\nc: 0")
+    })
+
+
     it('should handle objects with multiple keys', () => {
         toAndfro({ a: `Multi
         Line

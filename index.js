@@ -55,6 +55,7 @@ function toLeaf(obj) {
     }
 
     function add_to_accum_1(acc, curpath, v) {
+        if(typeof v === 'number') v = v.toString()
         acc.push({ path: curpath.slice(0), value: v })
     }
 
@@ -62,7 +63,7 @@ function toLeaf(obj) {
      * We only support string values
      */
     function is_leaf_1(v) {
-        return (typeof v === 'string')
+        return (typeof v === 'string' || typeof v === 'number')
     }
 
     /*      problem/
