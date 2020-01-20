@@ -60,7 +60,7 @@ function toLeaf(obj) {
     }
 
     /*      understand/
-     * We only support string values
+     * We only support string and number values
      */
     function is_leaf_1(v) {
         return (typeof v === 'string' || typeof v === 'number')
