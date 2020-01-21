@@ -246,6 +246,35 @@ describe('Jughead', () => {
           message: '"key1.key2.key3.key4" is not a valid ArchieML key'
         })
     })
+
+    it('should ignore spaces in keys in strict mode', () => {
+        let o = { " this key has spaces ": { "and so does this subkey": "so let's see\nhow we handle\nthis", "today and tomorrow": 123 } }
+        let txt = jughead.archieml(o)
+        assert.equal(txt, '')
+    })
+
+    it('should not ignore spaces in keys in non-strict mode', () => {
+        let o = { " this key has spaces ": { "and so does this subkey": "so let's see\nhow we handle\nthis", "today and tomorrow": 123 } }
+        let txt = jughead.archieml(o, { strict: false })
+        assert.equal(txt, ` this key has spaces .and so does this subkey: so let's see
+how we handle
+this
+:end
+ this key has spaces .today and tomorrow: 123`)
+    })
+
+    it('should throw error when skipping space keys', () => {
+        let o = { " this key has spaces ": { "and so does this subkey": "so let's see\nhow we handle\nthis", "today and tomorrow": 123 } }
+        assert.throws(() => jughead.archieml(o, { skipKeys: false }), {
+          message: '" this key has spaces " is not a valid ArchieML key'
+        })
+
+        let o2 = { "key1": { "key2": "so let's see\nhow we handle\nthis", "key with spaces": 123 } }
+        assert.throws(() => jughead.archieml(o2, { skipKeys: false }), {
+          message: '"key1.key with spaces" is not a valid ArchieML key'
+        })
+    })
+
   })
 
 })

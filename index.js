@@ -48,16 +48,25 @@ function toLeaf(obj, conf) {
             }
         } else if(typeof obj === 'object' && obj !== null) {
             for(let k in obj) {
+                if(conf.strict) {
+                    if(k.match(/\s/)) {
+                        if(conf.skipKeys) continue
+                        curpath.push(k)
+                        throwSkippedKey(curpath)
+                    }
+                }
                 curpath.push(path_elem_1(obj, k))
                 to_leaf_1(acc, curpath, obj[k])
                 curpath.pop(k)
             }
         } else {
-            if(!conf.skipKeys) {
-              let p = curpath.join('.')
-              throw new Error(`"${p}" is not a valid ArchieML key`)
-            }
+            if(!conf.skipKeys) throwSkippedKey(curpath)
         }
+    }
+
+    function throwSkippedKey(curpath) {
+        let p = curpath.join('.')
+        throw new Error(`"${p}" is not a valid ArchieML key`)
     }
 
     function add_to_accum_1(acc, curpath, v) {
