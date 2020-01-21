@@ -18,8 +18,9 @@ module.exports = {
  * We first convert the object into a 'leafy' structure and
  * then use that to output the ArchieML.
  */
-function archieml(obj) {
-    let leafy = toLeaf(obj)
+function archieml(obj, conf) {
+    conf = conf ? conf : { strict: true }
+    let leafy = toLeaf(obj, conf)
     return toArchieML(leafy)
 }
 
@@ -32,7 +33,7 @@ function archieml(obj) {
  * so that everytime we hit an end value we can add it to a "leafy"
  * accumulator.
  */
-function toLeaf(obj) {
+function toLeaf(obj, conf) {
     let leafy = []
     let curpath = []
 
@@ -55,15 +56,26 @@ function toLeaf(obj) {
     }
 
     function add_to_accum_1(acc, curpath, v) {
-        if(typeof v === 'number') v = v.toString()
+        if(typeof v === 'number' ||
+           typeof v === 'boolean') v = v.toString()
+        if(v === null) v = 'null'
         acc.push({ path: curpath.slice(0), value: v })
     }
 
     /*      understand/
-     * We only support string and number values
+     * We only support string and number values in 'strict' mode
+     * otherwise we also convert nulls and booleans.
      */
     function is_leaf_1(v) {
-        return (typeof v === 'string' || typeof v === 'number')
+        if(conf.strict) return (
+            typeof v === 'string' ||
+            typeof v === 'number')
+        else return (
+            typeof v === 'string' ||
+            typeof v === 'number' ||
+            typeof v === 'boolean' ||
+            v === null
+        )
     }
 
     /*      problem/

@@ -33,9 +33,11 @@ Just give it a JSON object and it will return you the ArchieML for it. Then you 
 
 First add the package from npm:
 
-        npm add jughead
-
+```sh
+    npm add jughead
 ```
+
+```javascript
 const jughead = require('jughead')
 let archietxt = jughead.archieml({
     an: "object",
@@ -48,7 +50,16 @@ let archietxt = jughead.archieml({
 console.log(archietxt)
 ```
 
+### Boolean and Null handling
+
+By default, Jughead will ignore `boolean` and `null` values as they cannot be strictly represented by Archie ML. If you prefer to convert them to strings, pass a `strict: false` option to the converter.
+
+```javascript
+let archietxt = jughead.archieml(obj, { strict: false })
+```
+
 ## Feedback
+
 Please report feedback, issues etc at [the github repo](https://github.com/theproductiveprogrammer/jughead).
 
 ## TODO

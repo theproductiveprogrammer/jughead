@@ -223,6 +223,14 @@ describe('Jughead', () => {
       })
   })
 
+  it('should work with nulls and booleans', () => {
+      let o = { "anull": null, "true": true, }
+      let txt1 = jughead.archieml(o)
+      assert.equal(txt1, '')
+      let txt2 = jughead.archieml(o, {strict: false})
+      assert.equal(txt2, 'anull: null\ntrue: true')
+  })
+
   })
 })
 
