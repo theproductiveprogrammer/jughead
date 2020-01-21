@@ -50,12 +50,22 @@ let archietxt = jughead.archieml({
 console.log(archietxt)
 ```
 
-### Boolean and Null handling
+### Options
+
+#### `strict`
 
 By default, Jughead will ignore `boolean` and `null` values as they cannot be strictly represented by Archie ML. If you prefer to convert them to strings, pass a `strict: false` option to the converter.
 
 ```javascript
 let archietxt = jughead.archieml(obj, { strict: false })
+```
+
+#### `skipKeys`
+
+If this is set then, instead of ignoring keys that it cannot convert to ArchieML, Jughead will throw an error when it encounters such a key.
+
+```javascript
+let archietxt = jughead.archieml(obj, { skipKeys: false })
 ```
 
 ## Feedback

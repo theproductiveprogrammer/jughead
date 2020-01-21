@@ -19,7 +19,7 @@ module.exports = {
  * then use that to output the ArchieML.
  */
 function archieml(obj, conf) {
-    conf = conf ? conf : { strict: true }
+    conf = Object.assign({ strict: true, skipKeys: true }, conf)
     let leafy = toLeaf(obj, conf)
     return toArchieML(leafy)
 }
@@ -46,11 +46,16 @@ function toLeaf(obj, conf) {
             for(let i = 0;i < obj.length;i++) {
                 to_leaf_1(acc, curpath, obj[i])
             }
-        } else if(typeof obj === 'object') {
+        } else if(typeof obj === 'object' && obj !== null) {
             for(let k in obj) {
                 curpath.push(path_elem_1(obj, k))
                 to_leaf_1(acc, curpath, obj[k])
                 curpath.pop(k)
+            }
+        } else {
+            if(!conf.skipKeys) {
+              let p = curpath.join('.')
+              throw new Error(`"${p}" is not a valid ArchieML key`)
             }
         }
     }

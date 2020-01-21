@@ -176,62 +176,78 @@ describe('Jughead', () => {
         ]})
     })
 
-   it('should work with repeating arrays inside objects', () => {
-       toAndfro({
-        sports: {
-            EntryQ: "Ask about Sports",
-            KB: [
-                { Q: "What is your favorite sport?", A: "Cricket", R: "Mine too!" },
-                { Q: "What else do you like?", R: "I like alligator wrestling" },
-                { Q: "Who is your favorite player?", A: "Ronaldo", R: "Bowl Gates is my man" }
-            ]},
-        dance : {
-            EntryQ: "Ask about dance",
-            KB: [
-                { Q: "Do you like to dance?", A: "Hell Yeah!", R: "I love the foxtrot!" },
-                { Q: "Wanna dance?", A: "Not right now. I have a boyfriend. My number is the pizza place", R: "Elaine?" }
-            ]}
-       })
-   })
+    it('should work with repeating arrays inside objects', () => {
+        toAndfro({
+         sports: {
+             EntryQ: "Ask about Sports",
+             KB: [
+                 { Q: "What is your favorite sport?", A: "Cricket", R: "Mine too!" },
+                 { Q: "What else do you like?", R: "I like alligator wrestling" },
+                 { Q: "Who is your favorite player?", A: "Ronaldo", R: "Bowl Gates is my man" }
+             ]},
+         dance : {
+             EntryQ: "Ask about dance",
+             KB: [
+                 { Q: "Do you like to dance?", A: "Hell Yeah!", R: "I love the foxtrot!" },
+                 { Q: "Wanna dance?", A: "Not right now. I have a boyfriend. My number is the pizza place", R: "Elaine?" }
+             ]}
+        })
+    })
 
-  it('should work with a nice mix', () => {
-      toAndfro({
-          "dance": {
-              "cer": "1",
-              "arrayName": [
-                  {
-                      "a": {
-                          "name": "Amanda"
-                      },
-                      "age": "26",
-                      "again": {
-                          "life": "me",
-                          "test": [
-                              "123",
-                              "456"
-                          ]
-                      }
-                  },
-                  {
-                      "a": {
-                          "name": "Tessa"
-                      },
-                      "age": "30"
-                  }
-              ]
-          }
-      })
+    it('should work with a nice mix', () => {
+        toAndfro({
+            "dance": {
+                "cer": "1",
+                "arrayName": [
+                    {
+                        "a": {
+                            "name": "Amanda"
+                        },
+                        "age": "26",
+                        "again": {
+                            "life": "me",
+                            "test": [
+                                "123",
+                                "456"
+                            ]
+                        }
+                    },
+                    {
+                        "a": {
+                            "name": "Tessa"
+                        },
+                        "age": "30"
+                    }
+                ]
+            }
+        })
+    })
+
+    it('should work with nulls and booleans', () => {
+        let o = { "anull": null, "true": true, }
+        let txt1 = jughead.archieml(o)
+        assert.equal(txt1, '')
+        let txt2 = jughead.archieml(o, {strict: false})
+        assert.equal(txt2, 'anull: null\ntrue: true')
+    })
+
+    it('should throw errors when skipping keys', () => {
+        let conf = { skipKeys: false }
+        let o = { "key1": null }
+        assert.throws(() => jughead.archieml(o, conf), {
+          message: '"key1" is not a valid ArchieML key'
+        })
+        o = { "key": true }
+        assert.throws(() => jughead.archieml(o, conf), {
+          message: '"key" is not a valid ArchieML key'
+        })
+        o = { "key1": { fine: "boy", "key2" : { key3: { ok: "ok", key4: false } } } }
+        assert.throws(() => jughead.archieml(o, conf), {
+          message: '"key1.key2.key3.key4" is not a valid ArchieML key'
+        })
+    })
   })
 
-  it('should work with nulls and booleans', () => {
-      let o = { "anull": null, "true": true, }
-      let txt1 = jughead.archieml(o)
-      assert.equal(txt1, '')
-      let txt2 = jughead.archieml(o, {strict: false})
-      assert.equal(txt2, 'anull: null\ntrue: true')
-  })
-
-  })
 })
 
 function toAndfro(o) {
