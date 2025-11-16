@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "archieml": "^0.4.2",
-    "mocha": "^6.1.4"
+    "mocha": "^11.7.5"
   },
   "bugs": {
     "url": "https://github.com/theproductiveprogrammer/jughead/issues"
